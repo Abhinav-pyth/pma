@@ -1,0 +1,7 @@
+node_modules/
+.next/
+out/
+coverage/
+.nyc_output/
+.env*
+!.env.example
