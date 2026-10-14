@@ -102,7 +102,7 @@ export function NotesClient({ notes, sprints, tasks, userId, wsId, initialOpen, 
             <div className="space-y-1"><Label>Visibility</Label><Select {...register("visibility")}><option value="private">Private — only you (enforced by RLS)</option><option value="workspace">Workspace — visible to members</option></Select></div>
             <div className="space-y-1"><Label>Link task</Label><Select {...register("task_id")}><option value="">None</option>{tasks.map((t: any) => <option key={t.id} value={t.id}>{t.title}</option>)}</Select></div>
             <div className="space-y-1"><Label>Link sprint</Label><Select {...register("sprint_id")}><option value="">None</option>{sprints.map((s: any) => <option key={s.id} value={s.id}>{s.name}</option>)}</Select></div>
-            <div className="space-y-1"><Label>Tags (comma separated)</Label><Input {...register("tags" as any)} defaultValue={Array.isArray(watch("tags")) ? (watch("tags") as string[]).join(", ") : (watch("tags") as string)} /></div>
+            <div className="space-y-1"><Label>Tags (comma separated)</Label><Input {...register("tags" as any)} defaultValue={(watch("tags") as unknown as string[] | undefined)?.join(", ") ?? ""} /></div>
           </div>
           <p className={cn("text-xs", vis === "private" ? "text-slate-500" : "text-blue-600")}>{vis === "private" ? "🔒 Private: enforced in the database via Row Level Security." : "🌐 Workspace members can read this note."}</p>
           <div className="flex justify-end gap-2"><Button type="button" variant="outline" onClick={() => setShowForm(false)}>Cancel</Button><Button type="submit">{editing ? "Save" : "Create"}</Button></div>

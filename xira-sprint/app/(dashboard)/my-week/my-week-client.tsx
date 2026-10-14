@@ -88,13 +88,13 @@ export function MyWeekClient({ days, today, anchor, plans, overdue, userId, wsId
       {mode === "board" ? (
         <DndContext sensors={sensors} onDragStart={e => setActiveDay((e.active.data.current?.item)?._day ?? null)} onDragEnd={onDragEnd}>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
-            {days.map(d => <DayColumn key={d} day={d} items={(planByDay[d] ?? []).map((i: any) => ({ ...i, _day: d }))} isToday={d === today} />)}
+            {days.map((d: string) => <DayColumn key={d} day={d} items={(planByDay[d] ?? []).map((i: any) => ({ ...i, _day: d }))} isToday={d === today} />)}
           </div>
           <DragOverlay>{activeDay ? null : null}</DragOverlay>
         </DndContext>
       ) : (
         <div className="space-y-3">
-          {days.map(d => {
+          {days.map((d: string) => {
             const items = planByDay[d] ?? [];
             return (
               <section key={d} className={cn("rounded-lg border p-3", d === today ? "border-indigo-400 bg-indigo-50/50 dark:bg-indigo-950/30" : "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900")}>

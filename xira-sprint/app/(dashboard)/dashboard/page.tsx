@@ -34,5 +34,5 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
   };
   const plannedIds = new Set((planData?.items ?? []).map((p: any) => p.task_id));
   const todaysFocus = [...(planData?.items ?? []), ...mine.filter(t => t.due_date === c.today && t.status !== "done" && !plannedIds.has(t.id))].slice(0, 12);
-  return <DashboardClient today={c.today} userId={c.userId} wsId={c.wsId} stats={stats} todaysFocus={todaysFocus} activeSprint={activeSprint} sprintStats={sprintStats(sprintTaskList)} sprintDaysLeft={activeSprint ? Math.max(0, Math.round((new Date(activeSprint.end_date).getTime() - new Date(c.today + "T00:00:00Z").getTime()) / 864e5)) : 0} activity={(recentActivity ?? []) as any[]} upcoming={(upcomingEvents ?? []) as any[]} submittedScrum={!!scrumToday} />;
+  return <DashboardClient today={c.today} userId={c.userId} wsId={c.wsId} stats={stats} todaysFocus={todaysFocus} activeSprint={activeSprint} sprintStats={sprintProgress(sprintTaskList)} sprintDaysLeft={activeSprint ? Math.max(0, Math.round((new Date(activeSprint.end_date).getTime() - new Date(c.today + "T00:00:00Z").getTime()) / 864e5)) : 0} activity={(recentActivity ?? []) as any[]} upcoming={(upcomingEvents ?? []) as any[]} submittedScrum={!!scrumToday} />;
 }

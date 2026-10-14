@@ -8,7 +8,7 @@ import { Modal, ConfirmDialog } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Progress, EmptyState } from "@/components/ui/misc";
 import { KanbanBoard } from "@/components/tasks/kanban";
-import { sprintProgress } from "@/services/sprints";
+import { sprintProgress } from "@/lib/sprint-math";
 import { canManageSprints } from "@/lib/permissions";
 import { createClient } from "@/lib/supabase/client";
 import { differenceInCalendarDays, parseISO, format } from "date-fns";

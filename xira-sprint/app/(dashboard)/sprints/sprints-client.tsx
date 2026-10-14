@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input, Label, Textarea, Select } from "@/components/ui/input";
 import { Progress, EmptyState } from "@/components/ui/misc";
 import { Badge } from "@/components/ui/badge";
-import { sprintProgress, detectOverlappingActive } from "@/services/sprints";
+import { sprintProgress, detectOverlappingActive } from "@/lib/sprint-math";
 import { canManageSprints } from "@/lib/permissions";
 import { createClient } from "@/lib/supabase/client";
 

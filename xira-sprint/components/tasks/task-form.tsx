@@ -16,9 +16,9 @@ export function TaskForm({ wsId, userId, members, sprints, projects, task, onDon
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(taskSchema),
-    defaultValues: task ? { ...task, labels: task.labels.join(", "), estimated_hours: task.estimated_hours ?? undefined as any, story_points: task.story_points ?? undefined as any } : { status: "todo", priority: "medium", labels: [] },
+    defaultValues: (task ? { ...task, labels: task.labels.join(", "), estimated_hours: task.estimated_hours ?? undefined, story_points: task.story_points ?? undefined } : { status: "todo", priority: "medium", labels: [] }) as any,
   });
   const [labelsVal, setLabelsVal] = useState(task?.labels.join(", ") ?? "");
 
@@ -58,7 +58,7 @@ export function TaskForm({ wsId, userId, members, sprints, projects, task, onDon
         <div className="space-y-1"><Label htmlFor="t-sprint">Sprint</Label><Select id="t-sprint" {...register("sprint_id")}><option value="">Backlog (none)</option>{sprints.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}</Select></div>
         <div className="space-y-1"><Label htmlFor="t-project">Project</Label><Select id="t-project" {...register("project_id")}><option value="">None</option>{projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</Select></div>
       </div>
-      <div className="space-y-1"><Label htmlFor="t-labels">Labels (comma separated)</Label><Input id="t-labels" value={labelsVal} onChange={e => setLabelsVal(e.target.value)} onBlur={() => { }} {...register("labels", { setValue: (v: any) => String(v ?? "") }) as any} /></div>
+      <div className="space-y-1"><Label htmlFor="t-labels">Labels (comma separated)</Label><Input id="t-labels" value={labelsVal} onChange={e => { setLabelsVal(e.target.value); setValue("labels", e.target.value.split(",").map((x: string) => x.trim()).filter(Boolean) as any); }} /></div>
       <div className="flex justify-end gap-2 pt-1"><Button type="button" variant="outline" onClick={onDone}>Cancel</Button><Button type="submit" disabled={loading}>{loading ? "Saving…" : task ? "Save changes" : "Create task"}</Button></div>
     </form>
   );
